@@ -4,18 +4,18 @@ namespace SmartHomeMini;
 
 public class SmartHomeFacade
 {
-    private IDevice light;
-    private IDevice fan;
-    private ILockable door;
+    private readonly IDevice light;
+    private readonly IDevice fan;
+    private readonly ILockable door;
 
     public SmartHomeFacade(
         IDevice light,
         IDevice fan,
         ILockable door)
     {
-        this.light = light;
-        this.fan = fan;
-        this.door = door;
+        this.light = light ?? throw new ArgumentNullException(nameof(light));
+        this.fan = fan ?? throw new ArgumentNullException(nameof(fan));
+        this.door = door ?? throw new ArgumentNullException(nameof(door));
     }
 
     public void GoToWork()
