@@ -4,12 +4,13 @@ namespace SmartHomeMini;
 
 public class SmartLight : IDevice
 {
-    public string Name { get; set; }
+    public string Name { get; private set; }
     public bool IsOn { get; private set; }
 
     public SmartLight(string name)
     {
-        Name = name;
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        Name = name.Trim();
     }
 
     public void TurnOn()

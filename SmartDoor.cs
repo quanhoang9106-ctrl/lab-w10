@@ -4,13 +4,14 @@ namespace SmartHomeMini;
 
 public class SmartDoor : IDevice, ILockable
 {
-    public string Name { get; set; }
+    public string Name { get; private set; }
     public bool IsOn { get; private set; }
     public bool IsLocked { get; private set; }
 
     public SmartDoor(string name)
     {
-        Name = name;
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        Name = name.Trim();
     }
 
     public void TurnOn()

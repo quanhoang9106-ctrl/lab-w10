@@ -20,6 +20,10 @@ public static class PatternTests
     {
         try { action(); }
         catch (T) { return true; }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Expected {typeof(T).Name}, got {e.GetType().Name}");
+        }
         return false;
     }
 
@@ -50,6 +54,17 @@ public static class PatternTests
             Check("T1 - Factory", light is SmartLight && fan is SmartFan && door is SmartDoor);
             Check("T2 - Invalid type", Throws<ArgumentException>(() => DeviceFactory.Create("camera", "Camera")));
             Check("T3 - Singleton", ReferenceEquals(config, HomeConfiguration.Instance));
+
+            foreach (string name in new string[] { null, "", "   " })
+            {
+                Check("Light - Invalid constructor name", Throws<ArgumentException>(() => new SmartLight(name)));
+                Check("Fan - Invalid constructor name", Throws<ArgumentException>(() => new SmartFan(name)));
+                Check("Door - Invalid constructor name", Throws<ArgumentException>(() => new SmartDoor(name)));
+            }
+            Check("Devices - Trim names", new SmartLight(" Light ").Name == "Light"
+                && new SmartFan(" Fan ").Name == "Fan" && new SmartDoor(" Door ").Name == "Door");
+            Check("Devices - Initially off and unlocked", !((SmartLight)light).IsOn
+                && !((SmartFan)fan).IsOn && !((SmartDoor)door).IsOn && !((SmartDoor)door).IsLocked);
 
             var facade = new SmartHomeFacade(light, fan, (ILockable)door);
             light.TurnOn();
@@ -93,6 +108,18 @@ public static class PatternTests
             door.TurnOn();
             door.TurnOff();
             Check("Door - Independent power and lock", !((SmartDoor)door).IsOn && ((SmartDoor)door).IsLocked);
+            ((ILockable)door).Unlock();
+            Check("Door - Unlock", !((SmartDoor)door).IsLocked && !((SmartDoor)door).IsOn);
+            light.TurnOn();
+            light.TurnOn();
+            fan.TurnOn();
+            fan.TurnOn();
+            Check("Devices - Repeated ON", ((SmartLight)light).IsOn && ((SmartFan)fan).IsOn);
+            light.TurnOff();
+            light.TurnOff();
+            fan.TurnOff();
+            fan.TurnOff();
+            Check("Devices - Repeated OFF", !((SmartLight)light).IsOn && !((SmartFan)fan).IsOn);
         }
         finally
         {

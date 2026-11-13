@@ -1,6 +1,17 @@
 T1 - Factory: PASS
 T2 - Invalid type: PASS
 T3 - Singleton: PASS
+Light - Invalid constructor name: PASS
+Fan - Invalid constructor name: PASS
+Door - Invalid constructor name: PASS
+Light - Invalid constructor name: PASS
+Fan - Invalid constructor name: PASS
+Door - Invalid constructor name: PASS
+Light - Invalid constructor name: PASS
+Fan - Invalid constructor name: PASS
+Door - Invalid constructor name: PASS
+Devices - Trim names: PASS
+Devices - Initially off and unlocked: PASS
 Living room light: ON
 Living room fan: ON
 Main door: UNLOCKED
@@ -30,4 +41,16 @@ Facade - Null door: PASS
 Main door: ON
 Main door: OFF
 Door - Independent power and lock: PASS
-Tests: 24, passed: 24, failed: 0
+Main door: UNLOCKED
+Door - Unlock: PASS
+Living room light: ON
+Living room light: ON
+Living room fan: ON
+Living room fan: ON
+Devices - Repeated ON: PASS
+Living room light: OFF
+Living room light: OFF
+Living room fan: OFF
+Living room fan: OFF
+Devices - Repeated OFF: PASS
+Tests: 38, passed: 38, failed: 0

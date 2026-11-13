@@ -51,7 +51,7 @@ Facade hiện điều khiển ba thiết bị được truyền khi khởi tạo
 
 - Sơ đồ lớp: [ClassDiagram.png](ClassDiagram.png).
 - Mã kiểm thử: `PatternTests.cs`.
-- Kết quả chạy: [TestResults.txt](TestResults.txt), 24 kiểm tra đạt, 0 thất bại.
+- Kết quả chạy: [TestResults.txt](TestResults.txt), 38 kiểm tra đạt, 0 thất bại.
 
 | Mã | Nội dung | Kết quả |
 | --- | --- | --- |
@@ -62,3 +62,13 @@ Facade hiện điều khiển ba thiết bị được truyền khi khởi tạo
 | T5 | Đi ngủ: quạt tắt, cửa khóa, đèn bật, in mức sáng cấu hình, đúng thứ tự | PASS |
 
 Các kiểm tra bổ sung bao gồm loại/tên rỗng, chuẩn hóa loại trong culture Thổ Nhĩ Kỳ, biên mức sáng 0/100, từ chối -1/101, phụ thuộc null của Facade và trạng thái nguồn/khóa độc lập của cửa. Bộ kiểm thử khôi phục cấu hình và culture sau khi chạy; trả mã thoát 1 nếu có kiểm tra thất bại.
+
+## 7. Các chỉnh sửa sau khi rà soát
+
+- Áp dụng đóng gói và constructor (bài 03/04): tên thiết bị được kiểm tra, bỏ khoảng trắng đầu/cuối ngay trong constructor; `Name` dùng `private set` để bên ngoài không gán lại tên rỗng hoặc làm tên lệch khỏi khóa tra cứu trong menu. Factory tập trung vào chọn lớp cụ thể và giao việc kiểm tra tên cho lớp thiết bị.
+- Tách `Program.Main` thành các phương thức private: `ShowMenu`, `ControlDevice`, `CreateDevice`, `ChangeNightLightLevel`. Main chỉ khởi tạo và điều phối menu. Đây là cải thiện cấu trúc, không phải giảm tổng số dòng hay thay đổi độ phức tạp thuật toán.
+- Dùng interface và kiểm tra kiểu (bài 07): chỉ hiện lựa chọn LOCK/UNLOCK cho thiết bị thực hiện `ILockable`; vẫn từ chối lệnh không hợp lệ.
+- Giữ Dictionary và tra cứu không phân biệt hoa/thường (bài 11 Collection); giữ Factory, Singleton và Facade theo đề Lab 10. Không thêm lớp cơ sở chỉ để gom vài dòng in trạng thái.
+- Bỏ kiểm tra lặp điều kiện 0–100 trong menu; `HomeConfiguration.NightLightLevel` là nơi kiểm tra giới hạn, menu xử lý ngoại lệ và thông báo cho người dùng. Nhập thành công có thông báo xác nhận.
+- Bổ sung kiểm thử constructor, chuẩn hóa tên, trạng thái ban đầu, mở khóa và bật/tắt lặp lại. Hàm kiểm tra ngoại lệ ghi nhận FAIL khi nhận sai loại ngoại lệ thay vì dừng toàn bộ bộ test tại đó.
+- Kết quả xác minh: build không có lỗi/cảnh báo; 38/38 kiểm tra trong chương trình đạt. Ngoài ra đã chạy tự động 9 tình huống menu: tạo/điều khiển thiết bị mới, loại sai/tên trùng, tên rỗng, mức sáng sai/hợp lệ, khóa/mở khóa và kết thúc đầu vào tại bốn vị trí. Các tình huống menu được kiểm tra bên ngoài chương trình, không nằm trong con số 38 của `--test`.

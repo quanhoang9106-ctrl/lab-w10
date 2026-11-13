@@ -35,10 +35,7 @@ public class SmartHomeFacade
         door.Lock();
         light.TurnOn();
 
-        int level =
-            HomeConfiguration.Instance.NightLightLevel;
-
-        Console.WriteLine(
-            "Night light level: " + level + "%");
+        int level = HomeConfiguration.Instance.NightLightLevel;
+        Console.WriteLine("Night light level: " + level + "%");
     }
 }
