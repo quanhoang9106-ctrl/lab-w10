@@ -1,0 +1,33 @@
+T1 - Factory: PASS
+T2 - Invalid type: PASS
+T3 - Singleton: PASS
+Living room light: ON
+Living room fan: ON
+Main door: UNLOCKED
+T4 - GoToWork: PASS
+T4 - Operation order: PASS
+Living room light: OFF
+Living room fan: ON
+Main door: UNLOCKED
+T5 - GoToSleep: PASS
+T5 - Configured level and order: PASS
+Factory - Turkish culture: PASS
+Factory - Empty type: PASS
+Factory - Empty type: PASS
+Factory - Empty type: PASS
+Factory - Empty name: PASS
+Factory - Empty name: PASS
+Factory - Empty name: PASS
+Configuration - Boundary 0: PASS
+Configuration - Boundary 100: PASS
+Configuration - Reject -1: PASS
+Configuration - Keep last valid value: PASS
+Configuration - Reject 101: PASS
+Configuration - Keep last valid value: PASS
+Facade - Null light: PASS
+Facade - Null fan: PASS
+Facade - Null door: PASS
+Main door: ON
+Main door: OFF
+Door - Independent power and lock: PASS
+Tests: 24, passed: 24, failed: 0
